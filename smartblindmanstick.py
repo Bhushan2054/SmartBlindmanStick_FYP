@@ -3,7 +3,7 @@ import time
 import datetime
  
 GPIO.setmode(GPIO.BOARD)
- 
+a
 GPIO_TRIGGER = 18
 GPIO_ECHO = 24
  
