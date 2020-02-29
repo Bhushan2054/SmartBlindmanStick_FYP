@@ -35,7 +35,7 @@ def distance():
     TimeElapsed = StopTime - StartTime
     distance = (TimeElapsed * 34300) / 2
     return distance
-   
+#code for alerting about the object and the distance in the form of sound   
 try:
     while True:
         dist = distance()
