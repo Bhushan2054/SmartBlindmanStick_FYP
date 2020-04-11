@@ -15,6 +15,7 @@ GPIO_TRIGGER = 18
 GPIO_ECHO = 24
 buzzer = 16
 button_date = 22
+button_sms = 13
 GPIO.setup(buzzer, GPIO.OUT, initial=GPIO.LOW)
 GPIO.setup(button_date, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(GPIO_TRIGGER, GPIO.OUT)
@@ -38,7 +39,7 @@ def distance():
 
 
 # code for sending message
-def sms1():
+def sms():
     serial_port = "/dev/serial0"
     mob_num = "9804089456"
     
@@ -67,6 +68,7 @@ def sms1():
 try:
     while True:
         button_state_date= GPIO.input(button_date)
+        button_state_sms= GPIO.input(button_sms)
         dist = distance()
         distt = round(dist, 2)
         dis = str(distt)
@@ -75,8 +77,9 @@ try:
         current_time = now.strftime("%H:%M:%S")
         engine = pyttsx3.init()
 
+        # Button for Current date (Buton-1)
         if button_state_date == False:
-            print('Button Pressed date...')
+            print('Button for date Pressed...')
             engine.say('The Current Date and Time is ' + current_date +'and'+ current_time)
             engine.runAndWait()	
             engine.stop()
@@ -84,7 +87,12 @@ try:
             # tts_en.save("CurrentDateTime.mp3")
             # os.system("mpg321 -q CurrentDateTime.mp3")
             time.sleep(0.1) 
-            sms1()   
+               
+        # Button for SMS Alert (Buton-2)
+        elif button_state_sms == False:
+            print('Button For SMS Pressed...')
+            sms()
+
 
         elif (dist < 15):
             GPIO.output(buzzer, GPIO.HIGH)
